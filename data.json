@@ -1,0 +1,19 @@
+{
+  "user": {
+    "name": "Arya",
+    "email": "arya@example.com",
+    "heartbeatIntervalDays": 30,
+    "warningGraceDays": 7,
+    "lastCheckIn": "2026-10-17T02:00:00.000Z",
+    "virtualDaysAdded": 0
+  },
+  "capsules": [],
+  "auditLogs": [
+    {
+      "id": "log-init",
+      "timestamp": "2026-10-17T02:00:00.000Z",
+      "type": "system",
+      "message": "LastEcho Digital Closure Protocol initialized and secured."
+    }
+  ]
+}

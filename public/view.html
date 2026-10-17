@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LastEcho — Letter Portal</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 1.5rem;
+      background: var(--bg-page, #F0F0ED);
+    }
+    .portal-card {
+      width: 100%;
+      max-width: 680px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-light, #DDDBD5);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      padding: 2.5rem;
+      animation: fadeIn 0.4s ease;
+    }
+    .portal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-light, #DDDBD5);
+      padding-bottom: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+    .paper-container {
+      background: #FAF9F6;
+      border: 1px solid #DDDBD5;
+      border-radius: 12px;
+      padding: 2.2rem;
+      margin-top: 1.5rem;
+    }
+    .letter-title {
+      font-family: var(--font-serif, 'Source Serif 4', Georgia, serif);
+      font-size: 1.45rem;
+      color: #1C1B19;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .letter-meta {
+      font-size: 0.85rem;
+      color: #55534D;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #DDDBD5;
+      padding-bottom: 0.8rem;
+      margin-bottom: 1.2rem;
+    }
+    .letter-body {
+      font-family: var(--font-serif, 'Source Serif 4', Georgia, serif);
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #1C1B19;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="portal-card">
+    <div class="portal-header">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="img/logo.png" alt="LastEcho" style="height: 38px; width: auto; border-radius: 6px; mix-blend-mode: multiply;">
+        <div>
+          <h2 style="font-family: var(--font-serif, serif); font-size: 1.2rem; margin: 0; color: #1C1B19;">LastEcho</h2>
+          <span style="font-size: 0.72rem; color: #8A877F; text-transform: uppercase; letter-spacing: 0.5px;">Digital Closure Protocol</span>
+        </div>
+      </div>
+      <span style="font-size: 0.78rem; background: rgba(77, 122, 86, 0.12); color: #4D7A56; padding: 4px 12px; border-radius: 99px; font-weight: 600;">
+        🔒 Verified Delivery
+      </span>
+    </div>
+
+    <!-- Loading State -->
+    <div id="loading-state" style="text-align: center; padding: 3rem 0; color: #8A877F;">
+      <p style="font-size: 1rem;">Retrieving and verifying digital capsule...</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="error-state" style="display: none; text-align: center; padding: 2rem; background: rgba(184, 92, 80, 0.08); border-radius: 12px; border: 1px solid rgba(184, 92, 80, 0.25);">
+      <h3 style="color: #B85C50; margin-bottom: 0.5rem;">Access Unavailable</h3>
+      <p id="error-message" style="color: #55534D; font-size: 0.9rem;">-</p>
+    </div>
+
+    <!-- Passphrase Required Form -->
+    <div id="passphrase-section" style="display: none;">
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <h3 id="recipient-greeting" style="font-size: 1.15rem; color: #1C1B19; margin-bottom: 0.3rem;">Confidential Capsule</h3>
+        <p style="font-size: 0.88rem; color: #55534D;">This message is protected by client-side AES-256 encryption. Please enter the secret passphrase to unlock.</p>
+      </div>
+
+      <div style="background: rgba(0,0,0,0.02); border: 1px solid #DDDBD5; border-radius: 8px; padding: 12px 16px; margin-bottom: 1.2rem;">
+        <span style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; color: #8A877F; font-weight: 600; display: block; margin-bottom: 3px;">Hint from Sender</span>
+        <span id="passphrase-hint" style="color: #1C1B19; font-size: 0.95rem; font-weight: 500;">-</span>
+      </div>
+
+      <div style="margin-bottom: 1.5rem;">
+        <label style="display: block; font-size: 0.85rem; font-weight: 600; color: #1C1B19; margin-bottom: 6px;">Passphrase</label>
+        <input type="password" id="input-key" class="form-input" style="width: 100%; padding: 10px 14px; border: 1px solid #DDDBD5; border-radius: 8px;" placeholder="Enter secret key...">
+      </div>
+
+      <button id="btn-unlock" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 1rem;">
+        Unlock & Decrypt Letter
+      </button>
+    </div>
+
+    <!-- Decrypted Letter Display -->
+    <div id="letter-section" style="display: none;">
+      <div class="paper-container">
+        <div class="letter-header">
+          <div class="letter-title" id="letter-subject">-</div>
+          <div class="letter-meta">
+            <span id="letter-sender">-</span>
+            <span id="letter-date">-</span>
+          </div>
+        </div>
+        <div class="letter-body" id="letter-content">-</div>
+      </div>
+      <div style="margin-top: 1.5rem; text-align: center; font-size: 0.8rem; color: #8A877F;">
+        Delivered with dignity via LastEcho Protocol.
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/crypto-helper.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const token = urlParams.get('token');
+
+      const loadingState = document.getElementById('loading-state');
+      const errorState = document.getElementById('error-state');
+      const errorMessage = document.getElementById('error-message');
+      const passphraseSection = document.getElementById('passphrase-section');
+      const letterSection = document.getElementById('letter-section');
+      const letterSubject = document.getElementById('letter-subject');
+      const letterSender = document.getElementById('letter-sender');
+      const letterDate = document.getElementById('letter-date');
+      const letterContent = document.getElementById('letter-content');
+      const passphraseHint = document.getElementById('passphrase-hint');
+      const inputKey = document.getElementById('input-key');
+      const btnUnlock = document.getElementById('btn-unlock');
+
+      if (!token) {
+        loadingState.style.display = 'none';
+        errorState.style.display = 'block';
+        errorMessage.textContent = 'Invalid or missing access token. Please check the link from your email.';
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/recipient/${token}`);
+        const data = await res.json();
+
+        loadingState.style.display = 'none';
+
+        if (!res.ok || data.error) {
+          errorState.style.display = 'block';
+          errorMessage.textContent = data.error || 'Failed to retrieve digital capsule.';
+          return;
+        }
+
+        // Direct email token access
+        if (data.deliveryType === 'magic_link' || !data.encryptedData.isClientEncrypted) {
+          showLetter(data, data.rawPlaintextDemo || data.encryptedData.ciphertext);
+        } else {
+          // Passphrase required
+          passphraseSection.style.display = 'block';
+          document.getElementById('recipient-greeting').textContent = `Dear ${data.recipientName},`;
+          passphraseHint.textContent = data.encryptedData.hint || 'No hint provided by sender.';
+
+          btnUnlock.addEventListener('click', async () => {
+            const key = inputKey.value.trim();
+            if (!key) {
+              alert('Please enter the secret passphrase.');
+              return;
+            }
+
+            try {
+              btnUnlock.textContent = 'Decrypting...';
+              const plaintext = await LastEchoCrypto.decrypt(data.encryptedData, key);
+              passphraseSection.style.display = 'none';
+              showLetter(data, plaintext);
+            } catch (err) {
+              alert('Incorrect passphrase. Please try again.');
+              btnUnlock.textContent = 'Unlock & Decrypt Letter';
+            }
+          });
+        }
+
+      } catch (err) {
+        loadingState.style.display = 'none';
+        errorState.style.display = 'block';
+        errorMessage.textContent = 'Network error while attempting to connect to LastEcho server.';
+      }
+
+      function showLetter(data, text) {
+        letterSubject.textContent = data.subject;
+        letterSender.textContent = `From: ${data.senderName} (${data.relationship})`;
+        letterDate.textContent = `Dispatched: ${new Date(data.dispatchedAt).toLocaleDateString('en-US')}`;
+        letterContent.textContent = text;
+        letterSection.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>

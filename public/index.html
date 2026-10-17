@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LastEcho — The Human Dead Man's Switch & Digital Closure Protocol</title>
+  
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Ambient Glow Effects -->
+  <div class="ambient-glow">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-brand">
+      <img src="img/logo.png" alt="LastEcho" class="brand-logo-img" style="height: 40px; width: auto; border-radius: 6px; mix-blend-mode: multiply;">
+      <div class="brand-text">
+        <h1 style="font-family: var(--font-serif, serif); font-size: 1.15rem; font-weight: 600; color: var(--text-primary); margin: 0; line-height: 1.2;">LastEcho</h1>
+        <p style="font-size: 0.68rem; color: var(--text-muted); margin: 0; letter-spacing: 0.3px;">Closure Protocol</p>
+      </div>
+      <div class="alexa-badge">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+        </svg>
+        <span>Alexa Enabled</span>
+      </div>
+    </div>
+
+    <nav class="nav-links">
+      <button class="nav-btn active" data-tab="tab-pulse">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        Pulse Radar
+      </button>
+      <button class="nav-btn" data-tab="tab-vault">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Capsule Vault (<span id="nav-capsule-count">1</span>)
+      </button>
+      <button class="nav-btn" data-tab="tab-sandbox">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Demo Sandbox
+      </button>
+      <button class="nav-btn" data-tab="tab-alexa">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+        Alexa Setup
+      </button>
+    </nav>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container">
+
+    <!-- ================= TAB 1: PULSE RADAR ================= -->
+    <section id="tab-pulse" class="tab-content active">
+      
+      <!-- Status Hero -->
+      <div class="status-hero">
+        <div class="status-grid">
+          <div>
+            <div id="status-tag" class="status-header-tag healthy">
+              <span class="pulse-dot"></span>
+              <span id="status-tag-text">Protocol Active & Secured</span>
+            </div>
+            <h2 class="hero-title">Your Digital Heartbeat is Active</h2>
+            <p class="hero-subtitle">
+              LastEcho quietly monitors your vitality intervals. If you become unreachable past your designated threshold, your client-encrypted capsules are automatically dispatched to your loved ones.
+            </p>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+              <button id="btn-quick-checkin" class="btn btn-primary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+                Refresh Heartbeat (Web Check-In)
+              </button>
+              <button id="btn-voice-trigger-hero" class="btn btn-alexa">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
+                Test Alexa Voice
+              </button>
+            </div>
+          </div>
+
+          <!-- Radar Visualizer -->
+          <div class="visualizer-box">
+            <div class="radar-wrapper">
+              <div class="radar-ring"></div>
+              <div class="radar-ring"></div>
+              <div class="radar-ring"></div>
+              <div class="radar-core">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="visualizer-caption">
+              <span id="visualizer-pulse-text">Pulse Frequency: 30-Day Interval</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Stat Cards -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">Remaining Until Check-In</div>
+          <div class="stat-value" id="stat-remaining-days">30 Days</div>
+          <div class="stat-sub" id="stat-remaining-sub">Timer operating normally</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Inactivity Detected</div>
+          <div class="stat-value" id="stat-elapsed-days">0 Days</div>
+          <div class="stat-sub" id="stat-last-checkin">Last check-in: Today</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Protected Capsules</div>
+          <div class="stat-value" id="stat-active-capsules">1 Sealed</div>
+          <div class="stat-sub" id="stat-active-capsules-sub">Zero-Knowledge Encrypted</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Grace Period Window</div>
+          <div class="stat-value">7 Days</div>
+          <div class="stat-sub">Buffer before switch execution</div>
+        </div>
+      </div>
+
+      <!-- Action Grid: Web vs Alexa Voice Simulation -->
+      <div class="action-grid">
+        <!-- Card 1: Check-in Manual -->
+        <div class="action-card">
+          <div>
+            <h3>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Manual Verification (Web)
+            </h3>
+            <p>
+              Simulate an instant manual pulse confirmation indicating that you are safe and healthy today.
+            </p>
+          </div>
+          <button id="btn-manual-checkin" class="btn btn-outline" style="width: 100%;">
+            Confirm: "I Am Doing Fine"
+          </button>
+        </div>
+
+        <!-- Card 2: Alexa Voice Simulator -->
+        <div class="action-card alexa-card">
+          <div>
+            <h3>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-alexa)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14h2v2h-2zm0-10h2v8h-2z"/></svg>
+              Amazon Alexa Voice Simulator
+            </h3>
+            <p>
+              Simulate the natural voice utterance: <strong>"Alexa, tell LastEcho I am doing fine"</strong>.
+            </p>
+          </div>
+          
+          <button id="btn-alexa-voice-test" class="btn btn-alexa" style="width: 100%;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+            Speak "Alexa, I'm okay"
+          </button>
+
+          <!-- Soundwave feedback -->
+          <div id="alexa-soundwave-box" class="soundwave-box">
+            <div class="soundwave-bars">
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+              <span class="wave-bar"></span>
+            </div>
+            <span id="alexa-transcript-text" class="alexa-transcript">Ready for Alexa voice command...</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ================= TAB 2: CAPSULE VAULT ================= -->
+    <section id="tab-vault" class="tab-content">
+      <div class="section-header">
+        <div>
+          <h2>Digital Capsules & Final Words</h2>
+          <p style="color: var(--text-secondary); font-size: 0.9rem;">
+            Client-side AES-GCM encrypted notes. The server and database never possess the decryption keys.
+          </p>
+        </div>
+        <button id="btn-open-create-modal" class="btn btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Create New Capsule
+        </button>
+      </div>
+
+      <!-- Capsules Grid -->
+      <div id="capsules-list" class="capsules-grid">
+        <!-- Rendered dynamically by JavaScript -->
+      </div>
+    </section>
+
+
+    <!-- ================= TAB 3: DEMO SANDBOX ================= -->
+    <section id="tab-sandbox" class="tab-content">
+      <div class="demo-banner">
+        <h3>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Hackathon Time-Machine Simulator (Judge Testing Suite)
+        </h3>
+        <p>
+          Simulate the Dead Man's Switch state machine without waiting 30 days in real-time. Fast-forward time instantly to demonstrate protocol transitions live to judges!
+        </p>
+        <div class="demo-controls">
+          <button class="btn btn-outline demo-step-btn" data-days="7">+7 Days (Normal)</button>
+          <button class="btn btn-outline demo-step-btn" data-days="14">+14 Days (Normal)</button>
+          <button class="btn btn-outline demo-step-btn" data-days="31" style="border-color: var(--accent-amber); color: var(--accent-amber);">
+            +31 Days (Grace Period)
+          </button>
+          <button class="btn btn-danger demo-step-btn" data-days="40">
+            +40 Days (TRIGGER SWITCH!)
+          </button>
+          <button id="btn-reset-simulation" class="btn btn-outline" style="margin-left: auto;">
+            Reset to Day 0
+          </button>
+        </div>
+      </div>
+
+      <!-- Automated Protocol Dispatcher Status Monitor -->
+      <div id="email-status-card" style="margin-bottom: 2rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 1rem;">
+          <div>
+            <h4 style="margin: 0; font-family: var(--font-heading); color: var(--text-primary); font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Automated Protocol Dispatcher
+            </h4>
+            <span style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 3px; display: block;">
+              Background Daemon • Autonomous Execution at 30 + 7 Days Threshold
+            </span>
+          </div>
+          <span id="email-status-badge" style="font-size: 0.8rem; padding: 5px 14px; border-radius: 99px; font-weight: 600; background: rgba(16, 185, 129, 0.12); color: var(--accent-emerald); border: 1px solid rgba(16, 185, 129, 0.25);">
+            🟢 Armed & Ready
+          </span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 1rem;">
+          <div style="background: rgba(0,0,0,0.02); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 10px 14px;">
+            <div style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); font-weight: 600;">Sender Channel</div>
+            <div id="disp-sender-email" style="font-size: 0.88rem; color: var(--text-primary); font-weight: 600; margin-top: 3px;">Arya7c.1@gmail.com</div>
+          </div>
+          <div style="background: rgba(0,0,0,0.02); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 10px 14px;">
+            <div style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); font-weight: 600;">Trigger Condition</div>
+            <div style="font-size: 0.88rem; color: var(--text-primary); font-weight: 600; margin-top: 3px;">30 Days + 7-Day Grace</div>
+          </div>
+          <div style="background: rgba(0,0,0,0.02); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 10px 14px;">
+            <div style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); font-weight: 600;">Delivery Target</div>
+            <div style="font-size: 0.88rem; color: var(--text-primary); font-weight: 600; margin-top: 3px;">Recipient Emails in Vault</div>
+          </div>
+        </div>
+
+        <p style="font-size: 0.84rem; color: var(--text-secondary); margin: 0; line-height: 1.5;">
+          ℹ️ <strong>Autonomous Operation:</strong> No manual steps required. As soon as inactivity reaches 37 days (or when +40 Days is triggered in the sandbox), LastEcho automatically dispatches the digital capsules directly to each beneficiary's inbox.
+        </p>
+      </div>
+
+      <!-- Dispatched Mail Simulation Preview -->
+      <div id="dispatched-preview-card" style="display: none; margin-bottom: 2rem; background: rgba(244, 63, 94, 0.08); border: 1px solid rgba(244, 63, 94, 0.3); border-radius: var(--radius-md); padding: 1.5rem;">
+        <h4 style="color: var(--accent-rose); font-family: var(--font-heading); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Closure Protocol Dispatched!
+        </h4>
+        <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 1rem;">
+          Inactivity exceeded the 37-day threshold. The system has initiated digital closure and dispatched private decryption tokens to registered beneficiaries.
+        </p>
+        <div id="dispatched-links-container" style="display: flex; gap: 10px; flex-wrap: wrap;"></div>
+      </div>
+
+      <div class="section-header">
+        <h2>Protocol Audit Trail</h2>
+      </div>
+      <div id="audit-logs-container" class="audit-list">
+        <!-- Rendered by JavaScript -->
+      </div>
+    </section>
+
+
+    <!-- ================= TAB 4: ALEXA SETUP ================= -->
+    <section id="tab-alexa" class="tab-content">
+      <div class="section-header">
+        <div>
+          <h2>Amazon Alexa Skill Configuration</h2>
+          <p style="color: var(--text-secondary); font-size: 0.9rem;">
+            Instructions to link LastEcho to your Amazon Echo devices or the Alexa mobile app.
+          </p>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div class="stat-card" style="padding: 1.8rem;">
+          <h3 style="font-family: var(--font-heading); margin-bottom: 1rem; color: var(--accent-alexa);">
+            Supported Voice Utterances
+          </h3>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px; font-size: 0.95rem;">
+            <li style="background: rgba(0,202,233,0.06); padding: 10px 14px; border-radius: var(--radius-sm); border-left: 3px solid var(--accent-alexa);">
+              🗣️ <strong>"Alexa, open Last Echo"</strong><br>
+              <small style="color: var(--text-secondary);">Opens the skill and reports protection status.</small>
+            </li>
+            <li style="background: rgba(0,202,233,0.06); padding: 10px 14px; border-radius: var(--radius-sm); border-left: 3px solid var(--accent-alexa);">
+              🗣️ <strong>"Alexa, tell Last Echo I am doing fine"</strong><br>
+              <small style="color: var(--text-secondary);">Instantly resets the dead man's switch interval.</small>
+            </li>
+            <li style="background: rgba(0,202,233,0.06); padding: 10px 14px; border-radius: var(--radius-sm); border-left: 3px solid var(--accent-alexa);">
+              🗣️ <strong>"Alexa, ask Last Echo for my status"</strong><br>
+              <small style="color: var(--text-secondary);">Audits remaining days & total protected capsules.</small>
+            </li>
+          </ul>
+        </div>
+
+        <div class="stat-card" style="padding: 1.8rem;">
+          <h3 style="font-family: var(--font-heading); margin-bottom: 1rem; color: #c7d2fe;">
+            Amazon Developer Console Setup
+          </h3>
+          <ol style="margin-left: 1.2rem; color: var(--text-secondary); font-size: 0.9rem; display: flex; flex-direction: column; gap: 10px;">
+            <li>Log into <a href="https://developer.amazon.com/alexa/console/ask" target="_blank" style="color: var(--accent-alexa);">developer.amazon.com</a> and create a Custom Skill named <strong>LastEcho</strong>.</li>
+            <li>In <strong>Interaction Model > JSON Editor</strong>, copy and paste the interaction model schema below.</li>
+            <li>Click <strong>Save Model</strong> and <strong>Build Model</strong>.</li>
+            <li>Under the <strong>Test</strong> tab, set the testing toggle to "Development" to test with real voice or simulator.</li>
+          </ol>
+          <div style="margin-top: 1.5rem;">
+            <button id="btn-copy-interaction-model" class="btn btn-outline" style="width: 100%;">
+              📋 Copy Alexa Interaction Model (JSON)
+            </button>
+          </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="margin-top: 3.5rem; padding: 2rem 0; border-top: 1px solid var(--border-light); text-align: center; color: var(--text-muted); font-size: 0.82rem;">
+      <div>LastEcho Protocol • Built for Amazon Alexa Hackathon</div>
+      <div style="margin-top: 4px; font-weight: 500; color: var(--text-secondary);">Copyright &copy; 2026 Arya. All rights reserved.</div>
+    </footer>
+
+  </main>
+
+
+  <!-- ================= MODAL: CREATE CAPSULE ================= -->
+  <div id="modal-create-capsule" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 style="font-family: var(--font-heading); font-size: 1.25rem;">Create Encrypted Digital Capsule</h3>
+        <button class="modal-close" id="btn-close-create-modal">&times;</button>
+      </div>
+
+      <div class="crypto-lock-badge">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span>Client-side AES-GCM 256-Bit Encryption Active. The server never sees the raw message.</span>
+      </div>
+
+      <form id="form-create-capsule">
+        <div class="form-group">
+          <label class="form-label">Recipient Full Name</label>
+          <input type="text" id="cap-recipient-name" class="form-input" placeholder="e.g. Eleanor Vance / Sarah Smith" required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label class="form-label">Recipient Email</label>
+            <input type="email" id="cap-recipient-email" class="form-input" placeholder="recipient@example.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Relationship</label>
+            <select id="cap-relationship" class="form-select">
+              <option value="Parent">Parent</option>
+              <option value="Partner / Spouse">Partner / Spouse</option>
+              <option value="Best Friend">Best Friend</option>
+              <option value="Child">Child</option>
+              <option value="Mentor / Colleague">Mentor / Colleague</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Subject / Title</label>
+          <input type="text" id="cap-subject" class="form-input" placeholder="e.g. A Final Letter and Words of Gratitude from Arya" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Confidential Message (Encrypted)</label>
+          <textarea id="cap-message" class="form-textarea" rows="5" placeholder="Write sincere thoughts, unspoken apologies, critical estate instructions, or cherished memories..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Delivery & Access Method</label>
+          <select id="cap-delivery-type" class="form-select">
+            <option value="magic_link" selected>✉️ Direct Email Access Token (Recipient clicks email link to read)</option>
+            <option value="passphrase">🔐 Dual-Key with Secret Passphrase (Recipient must enter secret key)</option>
+          </select>
+          <span class="form-help">Choose "Direct Email Access Token" for frictionless reading without remembering a secret key.</span>
+        </div>
+
+        <div id="passphrase-fields-group" style="display: none; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label class="form-label">Decryption Key (Passphrase)</label>
+            <input type="password" id="cap-passphrase" class="form-input" placeholder="Secret passphrase known by both">
+            <span class="form-help">The recipient will be prompted for this key.</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Passphrase Hint</label>
+            <input type="text" id="cap-hint" class="form-input" placeholder="e.g. The name of the cafe where we first met">
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 1.5rem;">
+          <button type="button" class="btn btn-outline" id="btn-cancel-create">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btn-submit-capsule">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Encrypt & Seal Capsule
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ================= MODAL: RECIPIENT LETTER DECRYPT ================= -->
+  <div id="modal-decrypt-letter" class="modal-overlay">
+    <div class="modal-card" style="max-width: 650px;">
+      <div class="modal-header">
+        <h3 id="decrypt-modal-title" style="font-family: var(--font-heading); font-size: 1.3rem;">LastEcho Letter Portal</h3>
+        <button class="modal-close" id="btn-close-decrypt-modal">&times;</button>
+      </div>
+
+      <!-- Locked State Input Form -->
+      <div id="decrypt-input-section">
+        <div style="text-align: center; margin-bottom: 1.5rem;">
+          <div style="width: 50px; height: 50px; border-radius: 50%; background: rgba(99, 102, 241, 0.15); display: inline-flex; align-items: center; justify-content: center; margin-bottom: 0.8rem;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-indigo)" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <h4 id="recipient-heading" style="font-size: 1.1rem; margin-bottom: 0.3rem;">For Beneficiary</h4>
+          <p id="recipient-desc-text" style="color: var(--text-secondary); font-size: 0.85rem;">
+            This digital capsule was automatically dispatched because the account owner has become inactive past the designated interval.
+          </p>
+        </div>
+
+        <div id="passphrase-input-container">
+          <div class="form-group">
+            <label class="form-label">Passphrase Hint</label>
+            <div id="decrypt-hint-display" style="padding: 0.75rem 1rem; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 0.88rem; color: #c7d2fe;">
+              -
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Enter Secret Passphrase</label>
+            <input type="password" id="input-decrypt-key" class="form-input" placeholder="Type the secret passphrase...">
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-top: 1rem;">
+          <button id="btn-submit-decrypt" class="btn btn-primary" style="flex: 1;">
+            Unlock & Read Message Now
+          </button>
+          <button id="btn-demo-bypass-decrypt" class="btn btn-outline" style="border-color: var(--accent-cyan); color: var(--accent-cyan); font-size: 0.82rem;" title="Bypass key for hackathon judge live demonstration">
+            💡 Demo Judge Bypass (Instant Open)
+          </button>
+        </div>
+      </div>
+
+      <!-- Decrypted Letter Section (Initially Hidden) -->
+      <div id="decrypt-result-section" style="display: none;">
+        <div class="letter-paper" style="background: #FAF9F6; border: 1px solid #DDDBD5; border-radius: var(--radius-md); padding: 2rem;">
+          <div class="letter-header" style="margin-bottom: 1.2rem; border-bottom: 1px solid #DDDBD5; padding-bottom: 1rem;">
+            <h4 id="letter-title" style="font-size: 1.35rem; color: #1C1B19; font-weight: 700; margin-bottom: 0.5rem; font-family: var(--font-serif, 'Georgia', serif);">-</h4>
+            <div style="font-size: 0.85rem; color: #55534D; display: flex; justify-content: space-between;">
+              <span id="letter-meta-sender">-</span>
+              <span id="letter-meta-date">-</span>
+            </div>
+          </div>
+          <div id="letter-body" class="letter-content" style="color: #1C1B19; font-size: 1.05rem; line-height: 1.8; font-family: var(--font-serif, 'Georgia', serif); white-space: pre-wrap;">
+            <!-- Plaintext message shown here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/crypto-helper.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

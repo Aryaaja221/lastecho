@@ -1,0 +1,45 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "last echo",
+      "intents": [
+        {
+          "name": "CheckInIntent",
+          "samples": [
+            "i am okay",
+            "i am doing fine",
+            "i am alive",
+            "check in",
+            "confirm my pulse",
+            "saya baik baik saja",
+            "cek in",
+            "saya sehat"
+          ]
+        },
+        {
+          "name": "StatusIntent",
+          "samples": [
+            "what is my status",
+            "how is my pulse",
+            "check my dead man switch",
+            "status protokol",
+            "cek status last echo"
+          ]
+        },
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        }
+      ],
+      "types": []
+    }
+  }
+}
